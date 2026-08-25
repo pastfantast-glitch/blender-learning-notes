@@ -44,6 +44,20 @@
 | `G → G` | Edge Slide | Edge Slide | 沿現有拓樸滑動 |
 | `Alt + J` | Tris to Quads | Quadrify 類似功能 | 可依 UV / Seam / Sharp 等條件限制合併；不是任意模型皆可無損還原 |
 
+### LoopTools：將選取頂點排列成圓形
+
+**LoopTools → Circle** 可以把選取的一圈頂點重新排列成規則圓形，適合製作孔洞、圓形開口與整理圓環拓樸。
+
+操作：
+
+1. 確認 Blender 的 **LoopTools** Extension / Add-on 已啟用。
+2. 進入 **Edit Mode**。
+3. 選取要圓形化的一圈 Vertices。
+4. 右鍵 → **LoopTools → Circle**。
+5. Circle 會重新排列既有頂點的位置，不會單純為了圓形化而增加頂點數。
+
+LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**，適合角色與一般建模拓樸整理。
+
 ## 5. 修改器與法線
 
 | Blender | 功能 | 3ds Max 對照 | 注意事項 |
@@ -119,6 +133,7 @@
 | Show Statistics | Viewport Overlays → Statistics |
 | Unify Normals | `Shift + N` |
 | Tris to Quads | `Alt + J` |
+| 將一圈頂點整理成圓形 | LoopTools → Circle |
 
 ## 11. 待補充
 
