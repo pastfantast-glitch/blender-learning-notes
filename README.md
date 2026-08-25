@@ -161,8 +161,8 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 - Pivot / Working Pivot / Transform Orientation
 - Edit Poly 常用指令對照
 - Unwrap UVW ↔ Blender UV Editor 深入操作
-- Blender 4.5 / 4.x 插件相容性
-- Unity / Unreal FBX 專案 SOP
+- 第三方插件版本相容性總表
+- 建立可直接套用的 Unity / Unreal FBX Export SOP
 
 ---
 
