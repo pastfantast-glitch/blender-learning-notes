@@ -44,17 +44,30 @@
 | `G → G` | Edge Slide | Edge Slide | 沿現有拓樸滑動 |
 | `Alt + J` | Tris to Quads | Quadrify 類似功能 | 可依 UV / Seam / Sharp 等條件限制合併；不是任意模型皆可無損還原 |
 
-### LoopTools：將選取頂點排列成圓形
+### LoopTools：官方擴充建模工具
+
+LoopTools 是 Blender 常用的 Mesh 建模工具集。它在 **Blender 4.1 以前屬於 bundled add-on**；Blender 4.2 之後改由官方 **Blender Extensions** 平台提供。Blender 4.5 可直接從 Preferences 安裝。
+
+#### 安裝／啟用（Blender 4.5）
+
+1. 開啟 **Edit → Preferences**。
+2. 左側進入 **Get Extensions**。
+3. 搜尋 `LoopTools`。
+4. 找到 **LoopTools**，按 **Install**。
+5. 安裝完成後確認已啟用；若暫時停用，也可在 Preferences 的 Extensions / Add-ons 管理頁重新 Enable。
+
+如果電腦無法連到 Extensions 平台，也可以從 Blender Extensions 網站下載 LoopTools 的 `.zip`，再到 Preferences → Get Extensions 右上選單使用 **Install from Disk** 安裝。
+
+#### Circle：將選取頂點排列成圓形
 
 **LoopTools → Circle** 可以把選取的一圈頂點重新排列成規則圓形，適合製作孔洞、圓形開口與整理圓環拓樸。
 
 操作：
 
-1. 確認 Blender 的 **LoopTools** Extension / Add-on 已啟用。
-2. 進入 **Edit Mode**。
-3. 選取要圓形化的一圈 Vertices。
-4. 右鍵 → **LoopTools → Circle**。
-5. Circle 會重新排列既有頂點的位置，不會單純為了圓形化而增加頂點數。
+1. 進入 **Edit Mode**。
+2. 選取要圓形化的一圈 Vertices。
+3. 右鍵 → **LoopTools → Circle**。
+4. Circle 會重新排列既有頂點的位置，不會單純為了圓形化而增加頂點數。
 
 LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**，適合角色與一般建模拓樸整理。
 
@@ -133,7 +146,7 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**，適
 | Show Statistics | Viewport Overlays → Statistics |
 | Unify Normals | `Shift + N` |
 | Tris to Quads | `Alt + J` |
-| 將一圈頂點整理成圓形 | LoopTools → Circle |
+| 將一圈頂點整理成圓形 | 安裝 LoopTools → Circle |
 
 ## 11. 待補充
 
