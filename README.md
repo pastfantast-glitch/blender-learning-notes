@@ -44,9 +44,15 @@
 | `G → G` | Edge Slide | Edge Slide | 沿現有拓樸滑動 |
 | `Alt + J` | Tris to Quads | Quadrify 類似功能 | 可依 UV / Seam / Sharp 等條件限制合併；不是任意模型皆可無損還原 |
 
-### LoopTools：官方擴充建模工具
+## 5. 內建插件 / 官方 Extensions
 
-LoopTools 是 Blender 常用的 Mesh 建模工具集。它在 **Blender 4.1 以前屬於 bundled add-on**；Blender 4.2 之後改由官方 **Blender Extensions** 平台提供。Blender 4.5 可直接從 Preferences 安裝。
+這一章專門收錄 Blender 內建附加元件、過去隨 Blender 提供的 bundled add-ons，以及目前透過官方 Blender Extensions 平台安裝的工具。
+
+> 規則：只要屬於 Blender 官方隨附／官方 Extensions 體系，就統一放在這一章；第三方商業或外部插件則放在對應主題章節。
+
+### 5.1 LoopTools
+
+LoopTools 是 Blender 常用的 Mesh 建模工具集。它在 **Blender 4.1 以前屬於 bundled add-on**；Blender 4.2 之後改由官方 **Blender Extensions** 平台提供。
 
 #### 安裝／啟用（Blender 4.5）
 
@@ -54,9 +60,9 @@ LoopTools 是 Blender 常用的 Mesh 建模工具集。它在 **Blender 4.1 以�
 2. 左側進入 **Get Extensions**。
 3. 搜尋 `LoopTools`。
 4. 找到 **LoopTools**，按 **Install**。
-5. 安裝完成後確認已啟用；若暫時停用，也可在 Preferences 的 Extensions / Add-ons 管理頁重新 Enable。
+5. 安裝完成後確認已啟用；若之後停用，可回到 Preferences 的 Extensions / Add-ons 管理頁重新 Enable。
 
-如果電腦無法連到 Extensions 平台，也可以從 Blender Extensions 網站下載 LoopTools 的 `.zip`，再到 Preferences → Get Extensions 右上選單使用 **Install from Disk** 安裝。
+如果無法連到 Extensions 平台，也可以下載 LoopTools 的 `.zip`，再到 Preferences → Get Extensions 右上選單使用 **Install from Disk** 安裝。
 
 #### Circle：將選取頂點排列成圓形
 
@@ -69,9 +75,9 @@ LoopTools 是 Blender 常用的 Mesh 建模工具集。它在 **Blender 4.1 以�
 3. 右鍵 → **LoopTools → Circle**。
 4. Circle 會重新排列既有頂點的位置，不會單純為了圓形化而增加頂點數。
 
-LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**，適合角色與一般建模拓樸整理。
+LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 
-## 5. 修改器與法線
+## 6. 修改器與法線
 
 | Blender | 功能 | 3ds Max 對照 | 注意事項 |
 |---|---|---|---|
@@ -79,13 +85,13 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**，適
 | `Shift + N` | Recalculate Outside | Unify Normals | Edit Mode |
 | Mark Sharp + Smooth by Angle | 控制硬邊 / 平滑 | Smoothing Groups | Blender 4.x 常見工作流 |
 
-## 6. 查看面數
+## 7. 查看面數
 
 - 3D Viewport → Viewport Overlays → **Statistics**：顯示 Vertices / Edges / Faces / Tris。
 - Status Bar 右鍵 → **Scene Statistics**：在底部狀態列顯示統計。
 - 遊戲資產效能預算通常優先確認 **Tris**。
 
-## 7. UV 工作流與插件
+## 8. UV 工作流與第三方插件
 
 | 工具 | 定位 | 適合用途 | 注意事項 |
 |---|---|---|---|
@@ -94,7 +100,7 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**，適
 | Zen UV | 一體化 UV 工作流 | Unwrap、對齊、Quadrify、UV 管理 | 付費插件 |
 | RizomUV Bridge | Blender ↔ RizomUV | 高複雜度專業 UV 工作流 | Bridge 與 RizomUV 版本需匹配 |
 
-## 8. Shader / Normal Map
+## 9. Shader / Normal Map
 
 ### 反轉 Normal Map 綠色通道
 
@@ -109,7 +115,7 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**，適
 
 注意：如果使用 Invert Color，要避免把整個 RGB 一起反轉。
 
-## 9. Blender ↔ Unity / Unreal：FBX、單位與座標
+## 10. Blender ↔ Unity / Unreal：FBX、單位與座標
 
 這一區是舊 Gemini 筆記中最需要謹慎處理的部分。FBX 單位、Blender Exporter、Unity Model Importer、Unreal Importer 與 Axis Conversion 會互相影響，不應把單一設定視為所有專案的固定規則。
 
@@ -133,7 +139,7 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**，適
 - FBX 是公分，因此 Unity 一定會讓 Transform 變成 `0.01`。
 - Unity Transform 不是 `1,1,1` 就一定有問題。
 
-## 10. 3ds Max → Blender 快速索引
+## 11. 3ds Max → Blender 快速索引
 
 | 3ds Max | Blender |
 |---|---|
@@ -146,9 +152,9 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**，適
 | Show Statistics | Viewport Overlays → Statistics |
 | Unify Normals | `Shift + N` |
 | Tris to Quads | `Alt + J` |
-| 將一圈頂點整理成圓形 | 安裝 LoopTools → Circle |
+| 將一圈頂點整理成圓形 | 內建插件 → LoopTools → Circle |
 
-## 11. 待補充
+## 12. 待補充
 
 - Symmetry ↔ Mirror Modifier
 - Relax / Conform / Shrinkwrap 對照
