@@ -154,6 +154,38 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 | Tris to Quads | `Alt + J` |
 | 將一圈頂點整理成圓形 | 內建插件 → LoopTools → Circle |
 
+
+## 13. 貼圖烘焙（Texture Baking / Render To Texture）
+
+對應 3ds Max 的 Render To Texture。以下以 Blender 4.5 的 Cycles 為基準。
+
+### 13.1 基本烘焙：材質顏色 → 圖片
+
+1. 模型先完成 UV 展開，並確認 UV 不會不必要地重疊。
+2. Render Properties → Render Engine 設為 **Cycles**。
+3. 在模型材質的 Shader Editor 新增 **Image Texture**，按 New 建立目標圖片（例如 2048 × 2048）。**點選 Image Texture 節點，使其成為 Active Node**；無須連接到 BSDF。多材質物件須確保每個相關材質都有正確的目標圖片節點且為 Active。
+4. Render Properties → Bake：選 **Diffuse**，只勾 **Color**，取消 **Direct**、**Indirect**，以避免將光照烘焙進顏色。
+5. 選取模型按 **Bake**，完成後在 Image Editor → Image → **Save As** 儲存圖片。
+
+若要精確輸出程序化節點計算後的顏色，可以將結果接到 Emission，改用 **Emit** 烘焙；要注意色彩空間及輸出設定。
+
+### 13.2 高模 → 低模 Normal Map
+
+1. 高模與低模正確對位；低模先展好 UV。
+2. 在低模材質中新增並選取目標 **Image Texture** 節點（Normal 圖片建議用 Non-Color 解讀）。
+3. Bake Type 設為 **Normal**，Space 設 **Tangent**；勾選 **Selected to Active**。
+4. Object Mode **先選高模，最後選低模**，確保低模為 Active Object。
+5. 調整 **Max Ray Distance**，必要時使用 Cage 避免投射錯誤，再按 **Bake**。
+6. 檢查 UV 接縫、法線方向與投射結果，並儲存圖片。
+
+### 13.3 注意事項與排錯
+
+- 烘焙結果空白：確認使用 Cycles、目標 Image Texture 節點為 Active，並檢查 UV。
+- 黑邊／接縫：檢查 UV Island 間距與 **Margin**。
+- Normal 細節錯亂：檢查高低模對位、Selected to Active、Ray Distance、Cage。
+- Blender 通常使用 OpenGL（Y+）切線空間 Normal；若目標引擎或專案使用 DirectX（Y−）慣例，須確認是否反轉綠色通道。
+- Bake 完成後仍須 **Image → Save As**，避免只留在暫存圖片中。
+
 ## 12. 待補充
 
 - Symmetry ↔ Mirror Modifier
