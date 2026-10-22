@@ -145,6 +145,25 @@ bmesh.update_edit_mesh(obj.data)
 
 參考：[Blender 4.5 UV Operators](https://docs.blender.org/manual/en/4.5/modeling/meshes/editing/uv.html)、[Blender 4.5 Python UV API](https://docs.blender.org/api/4.5/bpy.ops.uv.html)。
 
+### 8.2 Sharp Edge → Seam → Unwrap 的插件選項（Blender 4.5）
+
+對應 3ds Max **Unwrap UVW → Flatten Mapping → By Smoothing Groups**：
+
+| 工具 | 是否直接利用已標記 Sharp Edge | 展開能力 | 注意事項 |
+|---|---|---|---|
+| **Zen UV** | 是；**Conversion System → Seams by Sharp Edges** | 執行轉 Seam 後使用 **Zen Unwrap**，可依需求 Pack | 適合保留手動 Sharp 規劃；屬第三方付費插件 |
+| **Edge to Seam Toolkit** | 是；**Apply Sharp to Seams + Unwrap** | 一鍵轉換與展開 | 據產品文件會清除既有 Seams 與 UV Maps，操作前須備份 |
+| **Zeeks Auto UV Unwrap** | 不一定；主要依幾何銳利轉折判斷 | 自動建立 Seam、Unwrap；官方平台標示 Blender 4.2+ | 非完全等同既有 Sharp 標記轉換 |
+
+**Zen UV 推薦步驟**：安裝相容 Blender 4.5 的版本並啟用 → Edit Mode 設定 Mark Sharp → Zen UV 的 Conversion System **Seams by Sharp Edges** → 檢查紅色 Seam → **Zen Unwrap** → Pack Islands。另有「Auto Seams & Unwrap」可從幾何自動判斷並展 UV，但不等同僅使用既有 Sharp 標記。
+
+**不裝插件的替代方案**：先選取所有已標記 Sharp 的 Edge，然後 Mark Seam → Unwrap；或參照上一節的 BMesh Python 腳本批次將 Sharp 複製到 Seam。無論使用哪一種方法，必要時仍需為圓柱等形狀補充 Seam。
+
+參考來源：
+- [Zen UV 官方 Unwrap／Conversion System](https://zenmastersteam.github.io/Zen-UV/latest/unwrap/)
+- [Edge to Seam Toolkit 官方說明](https://superhivemarket.com/products/edge-to-seam-toolkit--hard-surface-uv-add-on/docs)
+- [Zeeks Auto UV Unwrap 官方 Extensions](https://extensions.blender.org/add-ons/zeeks-auto-uv-unwrap/)
+
 ## 9. Shader / Normal Map
 
 ### 反轉 Normal Map 綠色通道
