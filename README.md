@@ -105,6 +105,28 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 
 **重要差異**：Max 可讓面擁有多個 Smoothing Group，靠群組交集決定平滑；Blender 一般用 Face Smooth／Flat 加 Edge Sharp 決定法線連續性。UV Seam 與 Mark Sharp 是不同資料，不會自動互換。烘焙 Normal Map 前應固定低模法線設定，FBX 匯出後確認目標引擎是否保留法線。
 
+### 6.2 法線傳導（Normal Transfer / Data Transfer）
+
+**用途**：將來源 Mesh 的 Custom Normals 傳遞給目標 Mesh，改善目標物件的受光表現，**不會改變幾何外形**。Blender 4.5 主要使用 **Data Transfer Modifier → Custom Normals**；對照 3ds Max 的 Explicit/Vertex Normal 編輯與法線複製概念。
+
+**適合使用時機**：
+- 葉片、Hair Cards 等平面構成的模型：從球形／橢球形代理模型取得平滑法線，減少受光破碎。
+- 貼在角色曲面上的附加 Mesh：繼承主體近似法線，減少接合處不必要的明暗斷層。
+- NPR／Toon 材質：有意識地調整 Vertex Normal 驅動的受光分布；必須確認 Shader 是否採用該法線。
+
+**不需要的情況**：一般平滑使用 Shade Smooth；硬邊使用 Mark Sharp；改善大平面硬表面高光可先測試 Weighted Normal；高低模雕刻細節需 Normal Map Bake，並非 Normal Transfer。
+
+**Blender 4.5 步驟**：
+1. 準備受光理想的 **Source** 模型，與待修正的 **Target** 模型。
+2. 選取 Target → Modifier Properties → Add Modifier → **Data Transfer**。
+3. Source 指定來源 Mesh，啟用 **Custom Normals**；必要時按 **Generate Data Layers**。
+4. Mapping 可從 **Nearest Face Interpolated** 開始測試，再依模型拓樸、距離與投射方向調整；必要時使用 Max Distance、Mix Factor、Vertex Group 限制影響。
+5. 檢查硬邊、鏡面高光及目標引擎呈現，確認後再套用修改器。
+
+**對照區分**：Weighted Normal 是依自身面積／角度重新計算法線；Data Transfer 是從別的 Mesh 複製／插值法線。傳導會改變頂點／面角法線的 Shading，可能導致不自然的高光；Normal Map Bake、UV Seam 與 Mark Sharp 是不同概念。若輸出 FBX 給 Unity／Unreal，應檢查自訂法線是否確實匯出、引擎是否重新計算法線，以及最終 Normal Map 烘焙是否與法線一致。
+
+參考：[Blender 4.5 Data Transfer Modifier](https://docs.blender.org/manual/en/4.5/modeling/modifiers/modify/data_transfer.html)、[Blender Normal Edit Modifier](https://docs.blender.org/manual/en/4.5/modeling/modifiers/normals/normal_edit.html)。
+
 ## 7. 查看面數
 
 - 3D Viewport → Viewport Overlays → **Statistics**：顯示 Vertices / Edges / Faces / Tris。
