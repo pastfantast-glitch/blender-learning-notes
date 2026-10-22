@@ -159,6 +159,22 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 
 參考：[Marmoset Baking Tips & Tricks](https://docs.marmoset.co/docs/tips-tricks/)、[Blender Bevel Modifier](https://docs.blender.org/manual/en/4.5/modeling/modifiers/generate/bevel.html)。
 
+### 6.5 Weighted Normal 是否需要輸出到 Unity／Unreal？
+
+**需要保留的是 Weighted Normal 計算後的 Custom Normals，不是 Modifier 本身。** FBX 只承載最終 Mesh／Normals，不會把 Blender 的 Weighted Normal Modifier 原樣帶到遊戲引擎。
+
+**Blender 4.5 FBX 輸出建議**：
+1. 保留 Blender 檔案中的 Weighted Normal Modifier，以便日後非破壞性調整。
+2. File → Export → FBX；Geometry → **Apply Modifiers** 開啟，輸出修改器評估後的模型。
+3. Geometry → **Smoothing: Normals Only**，適用於支援自訂分離法線的匯入器。
+4. 將匯出 FBX 重新匯入測試，確認大平面、Bevel 高光以及自訂法線結果。
+
+**Unity**：FBX Model Import Settings → **Normals: Import**，避免引擎用 Calculate 覆蓋 Blender 的法線；**Tangents: Calculate Mikktspace** 可作為一般切線空間 Normal Map 工作流程的起點，但仍需與烘焙端的切線空間一致。Unreal 也應選擇保留／匯入自訂法線的設定，實際名稱依引擎版本而異。
+
+**Normal Bake 一致性**：在 High → Low Bake 之前定案 Weighted Normal、Sharp、UV 與三角化；最後匯入引擎的低模法線應盡量和 Bake 時相同。若事後關閉 Weighted Normal 或在引擎重新計算法線，Normal Map 可能出現高光、陰影、接縫異常。
+
+參考：[Blender 4.5 FBX Manual](https://docs.blender.org/manual/en/4.5/addons/import_export/scene_fbx.html)、[Unity Model Import Settings](https://docs.unity.com/en-us/engine/7000.0/manual/assets-and-media/asset-types/models/importing/fbximporter-model)。
+
 ## 7. 查看面數
 
 - 3D Viewport → Viewport Overlays → **Statistics**：顯示 Vertices / Edges / Faces / Tris。
