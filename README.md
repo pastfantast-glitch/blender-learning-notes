@@ -120,6 +120,31 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 | Zen UV | 一體化 UV 工作流 | Unwrap、對齊、Quadrify、UV 管理 | 付費插件 |
 | RizomUV Bridge | Blender ↔ RizomUV | 高複雜度專業 UV 工作流 | Bridge 與 RizomUV 版本需匹配 |
 
+
+### 8.1 依平滑組／硬邊自動展 UV（3ds Max 對照）
+
+**3ds Max**：Unwrap UVW → Flatten Mapping → By Smoothing Groups，依已分配的平滑組切割 UV Islands。
+
+**Blender 4.5**：沒有同名的原生「By Smoothing Groups」選項，通常採兩條路線：
+
+1. **Smart UV Project**：Edit Mode → A 全選 → U → Smart UV Project → 設定 Angle Limit 和 Island Margin。這是**依面與面夾角**自動展開，並非直接讀取既有 Mark Sharp。Angle Limit 越小通常 UV 島越碎。
+2. **已有 Sharp Edge 時：Sharp → Seam → Unwrap**。Mark Sharp 控制法線硬邊；Mark Seam 控制 UV 切割，兩者互不等同。少量邊可直接選 Edge → Ctrl+E → Mark Seam；大量已標 Sharp 的邊可用下面的 Python Console 指令複製標記到 Seam，然後 A → U → Unwrap。
+
+```python
+import bpy
+import bmesh
+obj = bpy.context.edit_object  # 須先選取 Mesh 並進入 Edit Mode
+bm = bmesh.from_edit_mesh(obj.data)
+for edge in bm.edges:
+    if not edge.smooth:  # 已標記 Sharp 的邊
+        edge.seam = True
+bmesh.update_edit_mesh(obj.data)
+```
+
+此腳本會**保留既有 Seam**，只額外標記 Sharp Edge 為 Seam。硬邊切割不一定等於理想 UV 切割：圓柱、角色等曲面可能仍須增加或刪減 Seam 以控制拉伸與接縫位置。
+
+參考：[Blender 4.5 UV Operators](https://docs.blender.org/manual/en/4.5/modeling/meshes/editing/uv.html)、[Blender 4.5 Python UV API](https://docs.blender.org/api/4.5/bpy.ops.uv.html)。
+
 ## 9. Shader / Normal Map
 
 ### 反轉 Normal Map 綠色通道
