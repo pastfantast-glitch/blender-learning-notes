@@ -203,6 +203,26 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 
 **Material Conversion 不等於 Texture Baking**：將 V-Ray／Arnold 等材質轉成其他材質類型，並不代表已輸出 Base Color 圖片。烘焙純色時須排除光照、陰影、AO、反射等非 Base Color 資訊。第三方渲染器的特殊節點未必能被所有 Bake Element 正確輸出。
 
+### 13.5 額外 Bake 插件（Blender 4.5 學習參考）
+
+這些屬於第三方插件／第三方官方平台 Extensions，不是 Blender 核心內建功能。
+
+| 插件 | 用途 | Blender 4.5 注意事項 |
+|---|---|---|
+| TexTools | UV 與多種 Bake 模式；有 3ds Max 與 Blender 版本 | GitHub 標示 Blender 3.2+，仍須核對最新版 |
+| SimpleBake | 簡化 PBR／程序化材質烘焙 | 開發者表示 2.3.4 維持 4～4.5 相容，但正式支援重心已轉向 5+ |
+| Bake Wrangler | 節點式烘焙、批次與進階輸出 | 2.0.4 官方文件要求 Blender 5.0.1+；4.5 須查舊版 |
+| BakeLab | 自動 UV、圖片與烘焙 | 舊版對應 2.79，新版需另查 |
+| The Better Baker | 官方 Extensions 平台上的第三方 PBR 烘焙插件 | 依 Extensions 頁面核對版本 |
+
+安裝前先確認相容性與來源；從 ZIP 安裝可在 Preferences 的 Extensions／Add-ons 管理介面選 Install from Disk，安裝後再啟用。官方 Extensions 平台上架不代表 Blender 核心內建。
+
+參考：
+- https://github.com/erox455/textools-blender
+- https://www.toohey.co.uk/SimpleBake/releasenotes4.html
+- https://bake-wrangler.readthedocs.io/en/latest/installation.html
+- https://extensions.blender.org/tag/add-ons/bake/
+
 ## 12. 待補充
 
 - Symmetry ↔ Mirror Modifier
