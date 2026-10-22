@@ -87,6 +87,24 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 | `Shift + N` | Recalculate Outside | Unify Normals | Edit Mode |
 | Mark Sharp + Smooth by Angle | 控制硬邊 / 平滑 | Smoothing Groups | Blender 4.x 常見工作流 |
 
+### 6.1 3ds Max Smoothing Groups ↔ Blender 4.5 Sharp Edges
+
+| 3ds Max | Blender 4.5 | 備註 |
+|---|---|---|
+| Smoothing Groups 1～32 | Shade Smooth + Mark Sharp | Blender 主要以面平滑狀態與 Edge Sharp 控制，不以群組編號編輯 |
+| Auto Smooth | Shade Auto Smooth / Shade Smooth by Angle | 依相鄰面夾角處理硬邊；版本與實作方式不同 |
+| Clear Smoothing Groups | Shade Flat | 效果類似但不完全等價 |
+| 手動指定平滑組邊界 | Edit Mode 選 Edge → Ctrl+E → Mark Sharp | 可用 F3 搜尋 Mark Sharp；取消為 Clear Sharp |
+| Weighted Normals | Weighted Normal Modifier | 可改善平面／硬表面高光 |
+
+操作：
+1. Object Mode → 選模型 → 右鍵 **Shade Smooth**。
+2. Edit Mode → 按 2 切換 Edge Select → 選取需要硬邊的 Edge。
+3. Ctrl+E → **Mark Sharp**；取消使用 **Clear Sharp**。
+4. 若需依角度自動處理，可用 F3 搜尋 **Shade Auto Smooth／Shade Smooth by Angle**，依 Blender 版本檢查具體操作。
+
+**重要差異**：Max 可讓面擁有多個 Smoothing Group，靠群組交集決定平滑；Blender 一般用 Face Smooth／Flat 加 Edge Sharp 決定法線連續性。UV Seam 與 Mark Sharp 是不同資料，不會自動互換。烘焙 Normal Map 前應固定低模法線設定，FBX 匯出後確認目標引擎是否保留法線。
+
 ## 7. 查看面數
 
 - 3D Viewport → Viewport Overlays → **Statistics**：顯示 Vertices / Edges / Faces / Tris。
