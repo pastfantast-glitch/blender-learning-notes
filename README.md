@@ -144,18 +144,20 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 
 參考：[Blender 4.5 Cycles Baking](https://docs.blender.org/manual/en/4.5/render/cycles/baking.html)、[Blender 4.5 Data Transfer](https://docs.blender.org/manual/en/4.5/modeling/modifiers/modify/data_transfer.html)。
 
-### 6.4 硬表面低模已有兩段 Bevel，還需要切硬邊嗎？
+### 6.4 硬表面低模：單段 Bevel（原一條硬邊 → 兩條邊 + 一個斜面）是否還要切 Sharp？
 
-**不一定。** 低模在 90° 轉角已有兩段實際 Chamfer／Bevel（Blender Bevel Segments = 2）時，先使用 **Shade Smooth** 確認受光，不需自動在每條倒角邊界 Mark Sharp。
+**先釐清幾何**：原本 90° 的單條硬邊，執行 **Bevel Segments = 1** 後產生一個斜面、兩條交界邊；**不是 Segments = 2** 的兩段倒角。這個斜面具有實際表面朝向，可提供實體高光，但輪廓仍只有一段直線倒角，並非圓弧。
 
-- **全部 Smooth 已正常**：可直接進行 High → Low Tangent Space Normal Bake，不必為了烘焙額外切平滑組。
-- **大平面被倒角法線拉歪，產生漸層或三角形陰影**：先測試 **Weighted Normal Modifier**，必要時搭配 Bevel 的 Harden Normals／Face Strength。Weighted Normal 不保證適合所有拓樸，須檢查高光。
-- **仍需隔離大平面與倒角法線**：才於倒角交界 **Mark Sharp**。若使用 Hard Edge，對應邊界**也應分割 UV Island**，降低切線空間 Normal Map 烘焙接縫風險；UV Seam 不一定反過來要求 Hard Edge。
-- **已有兩段倒角不是法線必須連續的保證**：根據大平面、高光與最終 Normal Map 結果判斷。烘焙前固定 Smooth／Sharp、Custom Normals、UV 及三角化行為，並確認匯入 Unity／Unreal 後法線切線一致。
+**結論：不一定需要切平滑組／Mark Sharp。** 優先測試 **Shade Smooth**，若大平面法線受倒角牽動、產生奇怪漸層，可嘗試 **Weighted Normal**；必要時搭配 Bevel Modifier 的 **Harden Normals / Face Strength**。它們會調整 Shading，但不會增加幾何弧度。
 
-**推薦順序**：兩段 Bevel → Shade Smooth → 檢查大平面與鏡面高光 → 視需要 Weighted Normal → 最後才考慮 Mark Sharp + UV Split → High/Low Normal Bake。
+- 想要柔和的高光過渡：通常保留 Smooth 並檢查 Weighted Normal 效果。
+- 想保留大平面的平直法線，或需要明確折角：可以在斜面兩側 **Mark Sharp**，但高光會更不連續。
+- **High → Low Normal Map Bake**：在烘焙前決定法線／Sharp／UV 與必要的 Weighted Normal。硬邊對應處應切 UV Island，減少切線空間接縫問題；反之 UV Seam 不一定要切硬邊。
+- 最後以高光、貼圖與 Unity／Unreal 中實際法線表現作判斷。**不是所有單段倒角都一定需要切 Sharp，也不是一定不能切。**
 
-參考：[Marmoset Baking Tips & Tricks](https://docs.marmoset.co/docs/tips-tricks/)、[Blender Bevel Modifier Shading](https://docs.blender.org/manual/en/4.5/modeling/modifiers/generate/bevel.html)。
+**推薦順序**：Bevel Segments = 1 → Shade Smooth → 檢查大平面與斜面高光 → 視情況 Weighted Normal → 必要時 Mark Sharp + UV Split → Normal Bake。
+
+參考：[Marmoset Baking Tips & Tricks](https://docs.marmoset.co/docs/tips-tricks/)、[Blender Bevel Modifier](https://docs.blender.org/manual/en/4.5/modeling/modifiers/generate/bevel.html)。
 
 ## 7. 查看面數
 
