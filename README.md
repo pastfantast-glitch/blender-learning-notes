@@ -186,6 +186,21 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 - Blender 通常使用 OpenGL（Y+）切線空間 Normal；若目標引擎或專案使用 DirectX（Y−）慣例，須確認是否反轉綠色通道。
 - Bake 完成後仍須 **Image → Save As**，避免只留在暫存圖片中。
 
+
+### 13.4 與 3ds Max Bake to Texture 的對照
+
+3ds Max **本身就能將材質／程序化紋理烘焙為圖片**，不需要為了 Base Color 烘焙而必須換到 Blender。新版 3ds Max 可從 **Rendering → Bake to Texture** 開始；舊版常使用 **Render To Texture（RTT）**。實際 Bake Elements 的名稱與可用功能依 3ds Max 版本、材質及渲染器而異。
+
+| 目標 | 3ds Max | Blender Cycles |
+|---|---|---|
+| 材質顏色 → Base Color | Bake to Texture 的 Albedo／Base Color 類輸出元素（視版本／渲染器而定） | Diffuse：只勾 Color，關閉 Direct／Indirect |
+| 程序化材質 → 圖片 | Bake to Texture，確認節點與渲染器支援 | 將目標顏色接到 Emission，再使用 Emit Bake |
+| 高模 → 低模 Normal | Projection／Bake to Texture | Normal + Selected to Active；依需求使用 Cage |
+| AO | 對應 AO 烘焙元素（依渲染器而定） | AO Bake |
+| 多材質 → 單張貼圖 | 先規劃共用 UV 與輸出目標，再 Bake | 共用 UV／目標 Image Texture，逐材質設定接收節點 |
+
+**Material Conversion 不等於 Texture Baking**：將 V-Ray／Arnold 等材質轉成其他材質類型，並不代表已輸出 Base Color 圖片。烘焙純色時須排除光照、陰影、AO、反射等非 Base Color 資訊。第三方渲染器的特殊節點未必能被所有 Bake Element 正確輸出。
+
 ## 12. 待補充
 
 - Symmetry ↔ Mirror Modifier
