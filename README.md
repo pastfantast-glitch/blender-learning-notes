@@ -1,17 +1,17 @@
-# Blender 學習筆記：3ds Max → Blender 轉換指南
+# 3D 美術學習筆記
 
-這份筆記用來持續整理從 **3ds Max 轉換到 Blender** 的學習內容，並延伸到遊戲美術常用的 Unity / Unreal、FBX、UV、Shader、Normal 與拓樸工作流。
+整理 3D 遊戲美術的**軟體功能學習**與**跨軟體製作技術**。依內容性質分成兩篇，彼此獨立，但可相互參照：
 
-> 更新原則：以 3ds Max 使用習慣作為索引，記錄 Blender 對應功能、快捷鍵、介面位置、用途與注意事項。涉及版本差異、FBX、引擎匯入或插件相容性的內容，會區分已確認資訊與待驗證項目。
+- **第一篇｜Blender 學習筆記：3ds Max → Blender 轉換指南**：聚焦操作對照、介面、快捷鍵、插件與功能使用方法。
+- **第二篇｜3D 技術研究與製作流程**：記錄跨軟體通用的法線、UV、烘焙、Shader、硬表面及 Unity／Unreal 技術原理與 SOP，不限定 Blender 或 3ds Max。
 
-> 學習方向：以熟悉的 **3ds Max 功能 → Blender 對應功能 → 操作步驟 → 差異 → 注意事項** 為主；目標是建立 Blender 功能對照知識，不預設要替換現有 3ds Max 工作流程，也不強制深入所有進階設定。
+> **歸檔規則**：以「Max 某功能在 Blender 怎麼做？」為主的內容放第一篇；以「何時、為何使用某種 3D 技術？」為主的內容放第二篇。可在兩篇間保留簡短交叉索引，但不複製完整文章。
 
-> **分類原則**：第一篇只放 3ds Max ↔ Blender 的功能對照與操作差異；第二篇獨立整理法線、烘焙、引擎匯出等技術原理與製作 SOP。內建插件與官方 Extensions 仍集中於第一篇的「內建插件」章節；第三方工具依用途歸檔。
+## 第一篇｜Blender 學習筆記：3ds Max → Blender 轉換指南
 
+> 本篇以 **3ds Max 功能 → Blender 對應功能 → 操作步驟 → 差異 → 注意事項** 編排；著重學會 Blender 對應操作，不預設取代 Max 工作流程。內建插件與官方 Extensions 集中在本篇第 5 節。
 
-# 第一篇｜3ds Max ↔ Blender 功能對照
-
-## 1. 視圖、狀態與座標
+### 1. 視圖、狀態與座標
 
 | Blender | 功能 | 3ds Max 對照 | 注意事項 |
 |---|---|---|---|
@@ -19,7 +19,7 @@
 | `N` | 開啟 3D Viewport 側邊欄 | Transform / Utility 面板 | 可查看 Location / Rotation / Scale |
 | `T` | 顯示 / 隱藏左側工具列 | 工具列概念 | 部分建模工具可用滑鼠操作 |
 
-## 2. 軸心、Reset XForm 與物件管理
+### 2. 軸心、Reset XForm 與物件管理
 
 | Blender | 功能 | 3ds Max 對照 | 注意事項 |
 |---|---|---|---|
@@ -31,7 +31,7 @@
 | `Ctrl + P` | 建立 Parent | Parent / Link | 影響 Transform 層級 |
 | `Alt + P` | 解除 Parent | Unlink | 保持世界位置時使用 Clear and Keep Transformation |
 
-## 3. Edge → Curve
+### 3. Edge → Curve
 
 對應 Max 的 **Create Shape from Selection**：
 
@@ -41,7 +41,7 @@
 4. Object Mode → 右鍵 → Convert To → Curve。
 5. Curve Data Properties → Geometry → Bevel → Depth 可產生厚度。
 
-## 4. 網格編輯與拓樸
+### 4. 網格編輯與拓樸
 
 | Blender | 功能 | 3ds Max 對照 | 注意事項 |
 |---|---|---|---|
@@ -51,17 +51,17 @@
 | `G → G` | Edge Slide | Edge Slide | 沿現有拓樸滑動 |
 | `Alt + J` | Tris to Quads | Quadrify 類似功能 | 可依 UV / Seam / Sharp 等條件限制合併；不是任意模型皆可無損還原 |
 
-## 5. 內建插件 / 官方 Extensions
+### 5. 內建插件 / 官方 Extensions
 
 這一章專門收錄 Blender 內建附加元件、過去隨 Blender 提供的 bundled add-ons，以及目前透過官方 Blender Extensions 平台安裝的工具。
 
 > 規則：只要屬於 Blender 官方隨附／官方 Extensions 體系，就統一放在這一章；第三方商業或外部插件則放在對應主題章節。
 
-### 5.1 LoopTools
+#### 5.1 LoopTools
 
 LoopTools 是 Blender 常用的 Mesh 建模工具集。它在 **Blender 4.1 以前屬於 bundled add-on**；Blender 4.2 之後改由官方 **Blender Extensions** 平台提供。
 
-#### 安裝／啟用（Blender 4.5）
+##### 安裝／啟用（Blender 4.5）
 
 1. 開啟 **Edit → Preferences**。
 2. 左側進入 **Get Extensions**。
@@ -71,7 +71,7 @@ LoopTools 是 Blender 常用的 Mesh 建模工具集。它在 **Blender 4.1 以�
 
 如果無法連到 Extensions 平台，也可以下載 LoopTools 的 `.zip`，再到 Preferences → Get Extensions 右上選單使用 **Install from Disk** 安裝。
 
-#### Circle：將選取頂點排列成圓形
+##### Circle：將選取頂點排列成圓形
 
 **LoopTools → Circle** 可以把選取的一圈頂點重新排列成規則圓形，適合製作孔洞、圓形開口與整理圓環拓樸。
 
@@ -84,7 +84,7 @@ LoopTools 是 Blender 常用的 Mesh 建模工具集。它在 **Blender 4.1 以�
 
 LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 
-## 6. 修改器與法線
+### 6. 修改器與法線
 
 | Blender | 功能 | 3ds Max 對照 | 注意事項 |
 |---|---|---|---|
@@ -92,7 +92,7 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 | `Shift + N` | Recalculate Outside | Unify Normals | Edit Mode |
 | Mark Sharp + Smooth by Angle | 控制硬邊 / 平滑 | Smoothing Groups | Blender 4.x 常見工作流 |
 
-### 6.1 3ds Max Smoothing Groups ↔ Blender 4.5 Sharp Edges
+#### 6.1 3ds Max Smoothing Groups ↔ Blender 4.5 Sharp Edges
 
 | 3ds Max | Blender 4.5 | 備註 |
 |---|---|---|
@@ -110,13 +110,13 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 
 **重要差異**：Max 可讓面擁有多個 Smoothing Group，靠群組交集決定平滑；Blender 一般用 Face Smooth／Flat 加 Edge Sharp 決定法線連續性。UV Seam 與 Mark Sharp 是不同資料，不會自動互換。烘焙 Normal Map 前應固定低模法線設定，FBX 匯出後確認目標引擎是否保留法線。
 
-## 7. 查看面數
+### 7. 查看面數
 
 - 3D Viewport → Viewport Overlays → **Statistics**：顯示 Vertices / Edges / Faces / Tris。
 - Status Bar 右鍵 → **Scene Statistics**：在底部狀態列顯示統計。
 - 遊戲資產效能預算通常優先確認 **Tris**。
 
-## 8. UV 功能對照與相關插件
+### 8. UV 功能對照與相關插件
 
 | 工具 | 定位 | 適合用途 | 注意事項 |
 |---|---|---|---|
@@ -126,7 +126,7 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 | RizomUV Bridge | Blender ↔ RizomUV | 高複雜度專業 UV 工作流 | Bridge 與 RizomUV 版本需匹配 |
 
 
-### 8.1 依平滑組／硬邊自動展 UV（3ds Max 對照）
+#### 8.1 依平滑組／硬邊自動展 UV（3ds Max 對照）
 
 **3ds Max**：Unwrap UVW → Flatten Mapping → By Smoothing Groups，依已分配的平滑組切割 UV Islands。
 
@@ -150,7 +150,7 @@ bmesh.update_edit_mesh(obj.data)
 
 參考：[Blender 4.5 UV Operators](https://docs.blender.org/manual/en/4.5/modeling/meshes/editing/uv.html)、[Blender 4.5 Python UV API](https://docs.blender.org/api/4.5/bpy.ops.uv.html)。
 
-### 8.2 Sharp Edge → Seam → Unwrap 的插件選項（Blender 4.5）
+#### 8.2 Sharp Edge → Seam → Unwrap 的插件選項（Blender 4.5）
 
 對應 3ds Max **Unwrap UVW → Flatten Mapping → By Smoothing Groups**：
 
@@ -169,7 +169,7 @@ bmesh.update_edit_mesh(obj.data)
 - [Edge to Seam Toolkit 官方說明](https://superhivemarket.com/products/edge-to-seam-toolkit--hard-surface-uv-add-on/docs)
 - [Zeeks Auto UV Unwrap 官方 Extensions](https://extensions.blender.org/add-ons/zeeks-auto-uv-unwrap/)
 
-### 8.3 RizomUV：利用硬邊資訊進行 Auto Seams 與 Unfold
+#### 8.3 RizomUV：利用硬邊資訊進行 Auto Seams 與 Unfold
 
 **RizomUV 可以處理這個需求，先前列舉 UV 插件時不應忽略它。** RizomUV 的 **Auto Seams → Sharpest Angles** 適合硬表面模型，可分析幾何角度、Quad 拓樸及 User Vertex Normals 等資訊，自動決定接縫並 Unfold／Pack。RizomUV 更新紀錄亦提到 Auto Seams 的法線來源設定。
 
@@ -185,7 +185,7 @@ bmesh.update_edit_mesh(obj.data)
 
 參考：[RizomUV 官方算法](https://www.rizomuv.com/c-library/)、[RizomUV 更新紀錄](https://www.rizomuv.com/changelog/)、[RizomUV Bridge 文件](https://superhivemarket.com/products/rizom-uv-bridge/docs)。
 
-## 9. 3ds Max → Blender 快速索引
+### 9. 3ds Max → Blender 快速索引
 
 | 3ds Max | Blender |
 |---|---|
@@ -200,9 +200,9 @@ bmesh.update_edit_mesh(obj.data)
 | Tris to Quads | `Alt + J` |
 | 將一圈頂點整理成圓形 | 內建插件 → LoopTools → Circle |
 
-## 10. Bake to Texture ↔ Blender Cycles Bake
+### 10. Bake to Texture ↔ Blender Cycles Bake
 
-### 10.1 功能與輸出元素對照
+#### 10.1 功能與輸出元素對照
 
 3ds Max **本身就能將材質／程序化紋理烘焙為圖片**，不需要為了 Base Color 烘焙而必須換到 Blender。新版 3ds Max 可從 **Rendering → Bake to Texture** 開始；舊版常使用 **Render To Texture（RTT）**。實際 Bake Elements 的名稱與可用功能依 3ds Max 版本、材質及渲染器而異。
 
@@ -216,7 +216,7 @@ bmesh.update_edit_mesh(obj.data)
 
 **Material Conversion 不等於 Texture Baking**：將 V-Ray／Arnold 等材質轉成其他材質類型，並不代表已輸出 Base Color 圖片。烘焙純色時須排除光照、陰影、AO、反射等非 Base Color 資訊。第三方渲染器的特殊節點未必能被所有 Bake Element 正確輸出。
 
-## 11. 功能對照待補充
+### 11. 功能對照待補充
 
 - Symmetry ↔ Mirror Modifier
 - Relax / Conform / Shrinkwrap 對照
@@ -226,13 +226,13 @@ bmesh.update_edit_mesh(obj.data)
 - 第三方插件版本相容性總表
 - 建立可直接套用的 Unity / Unreal FBX Export SOP
 
-# 第二篇｜3D 技術研究與製作流程
+## 第二篇｜3D 技術研究與製作流程
 
 > 此篇記錄通用 3D 製作技術、判斷依據與引擎工作流程，不以 Max 與 Blender 的指令對照為主。
 
-## 12. 法線與硬表面技術
+### 12. 法線與硬表面技術
 
-### 12.1 法線傳導（Normal Transfer / Data Transfer）
+#### 12.1 法線傳導（Normal Transfer / Data Transfer）
 
 **用途**：將來源 Mesh 的 Custom Normals 傳遞給目標 Mesh，改善目標物件的受光表現，**不會改變幾何外形**。Blender 4.5 主要使用 **Data Transfer Modifier → Custom Normals**；對照 3ds Max 的 Explicit/Vertex Normal 編輯與法線複製概念。
 
@@ -254,7 +254,7 @@ bmesh.update_edit_mesh(obj.data)
 
 參考：[Blender 4.5 Data Transfer Modifier](https://docs.blender.org/manual/en/4.5/modeling/modifiers/modify/data_transfer.html)、[Blender Normal Edit Modifier](https://docs.blender.org/manual/en/4.5/modeling/modifiers/normals/normal_edit.html)。
 
-### 12.2 法線傳導與 High Poly → Low Poly Normal Bake 的關係
+#### 12.2 法線傳導與 High Poly → Low Poly Normal Bake 的關係
 
 **法線傳導（Data Transfer → Custom Normals）可以在烘焙前用來調整低模頂點／面角法線，但不會自行將高模雕刻細節烘焙成貼圖。** Tangent Space Normal Map 依低模的法線與切線基底編碼；更改低模法線可能改變烘焙結果與引擎呈現。
 
@@ -271,7 +271,7 @@ bmesh.update_edit_mesh(obj.data)
 
 參考：[Blender 4.5 Cycles Baking](https://docs.blender.org/manual/en/4.5/render/cycles/baking.html)、[Blender 4.5 Data Transfer](https://docs.blender.org/manual/en/4.5/modeling/modifiers/modify/data_transfer.html)。
 
-### 12.3 硬表面低模：單段 Bevel（原一條硬邊 → 兩條邊 + 一個斜面）是否還要切 Sharp？
+#### 12.3 硬表面低模：單段 Bevel（原一條硬邊 → 兩條邊 + 一個斜面）是否還要切 Sharp？
 
 **先釐清幾何**：原本 90° 的單條硬邊，執行 **Bevel Segments = 1** 後產生一個斜面、兩條交界邊；**不是 Segments = 2** 的兩段倒角。這個斜面具有實際表面朝向，可提供實體高光，但輪廓仍只有一段直線倒角，並非圓弧。
 
@@ -286,7 +286,7 @@ bmesh.update_edit_mesh(obj.data)
 
 參考：[Marmoset Baking Tips & Tricks](https://docs.marmoset.co/docs/tips-tricks/)、[Blender Bevel Modifier](https://docs.blender.org/manual/en/4.5/modeling/modifiers/generate/bevel.html)。
 
-### 12.4 Weighted Normal 是否需要輸出到 Unity／Unreal？
+#### 12.4 Weighted Normal 是否需要輸出到 Unity／Unreal？
 
 **需要保留的是 Weighted Normal 計算後的 Custom Normals，不是 Modifier 本身。** FBX 只承載最終 Mesh／Normals，不會把 Blender 的 Weighted Normal Modifier 原樣帶到遊戲引擎。
 
@@ -302,11 +302,11 @@ bmesh.update_edit_mesh(obj.data)
 
 參考：[Blender 4.5 FBX Manual](https://docs.blender.org/manual/en/4.5/addons/import_export/scene_fbx.html)、[Unity Model Import Settings](https://docs.unity.com/en-us/engine/7000.0/manual/assets-and-media/asset-types/models/importing/fbximporter-model)。
 
-## 13. Texture Baking 技術與流程
+### 13. Texture Baking 技術與流程
 
 以下以 Blender 4.5 Cycles 示範，技術原則也適用於其他 DCC 的 High/Low 烘焙工作。
 
-### 13.1 基本烘焙：材質顏色 → 圖片
+#### 13.1 基本烘焙：材質顏色 → 圖片
 
 1. 模型先完成 UV 展開，並確認 UV 不會不必要地重疊。
 2. Render Properties → Render Engine 設為 **Cycles**。
@@ -316,7 +316,7 @@ bmesh.update_edit_mesh(obj.data)
 
 若要精確輸出程序化節點計算後的顏色，可以將結果接到 Emission，改用 **Emit** 烘焙；要注意色彩空間及輸出設定。
 
-### 13.2 高模 → 低模 Normal Map
+#### 13.2 高模 → 低模 Normal Map
 
 1. 高模與低模正確對位；低模先展好 UV。
 2. 在低模材質中新增並選取目標 **Image Texture** 節點（Normal 圖片建議用 Non-Color 解讀）。
@@ -325,7 +325,7 @@ bmesh.update_edit_mesh(obj.data)
 5. 調整 **Max Ray Distance**，必要時使用 Cage 避免投射錯誤，再按 **Bake**。
 6. 檢查 UV 接縫、法線方向與投射結果，並儲存圖片。
 
-### 13.3 注意事項與排錯
+#### 13.3 注意事項與排錯
 
 - 烘焙結果空白：確認使用 Cycles、目標 Image Texture 節點為 Active，並檢查 UV。
 - 黑邊／接縫：檢查 UV Island 間距與 **Margin**。
@@ -333,7 +333,7 @@ bmesh.update_edit_mesh(obj.data)
 - Blender 通常使用 OpenGL（Y+）切線空間 Normal；若目標引擎或專案使用 DirectX（Y−）慣例，須確認是否反轉綠色通道。
 - Bake 完成後仍須 **Image → Save As**，避免只留在暫存圖片中。
 
-### 13.4 額外 Bake 插件（Blender 4.5 學習參考）
+#### 13.4 額外 Bake 插件（Blender 4.5 學習參考）
 
 這些屬於第三方插件／第三方官方平台 Extensions，不是 Blender 核心內建功能。
 
@@ -353,9 +353,9 @@ bmesh.update_edit_mesh(obj.data)
 - https://bake-wrangler.readthedocs.io/en/latest/installation.html
 - https://extensions.blender.org/tag/add-ons/bake/
 
-## 14. Shader / Normal Map 技術
+### 14. Shader / Normal Map 技術
 
-### 反轉 Normal Map 綠色通道
+#### 反轉 Normal Map 綠色通道
 
 如果需要反轉法線貼圖的 Y / Green 通道：
 
@@ -368,24 +368,24 @@ bmesh.update_edit_mesh(obj.data)
 
 注意：如果使用 Invert Color，要避免把整個 RGB 一起反轉。
 
-## 15. Unity / Unreal：FBX、單位與座標技術
+### 15. Unity / Unreal：FBX、單位與座標技術
 
 這一區是舊 Gemini 筆記中最需要謹慎處理的部分。FBX 單位、Blender Exporter、Unity Model Importer、Unreal Importer 與 Axis Conversion 會互相影響，不應把單一設定視為所有專案的固定規則。
 
-### Blender 基準
+#### Blender 基準
 
 - 常見工作流：Metric、Unit Scale = `1.0`。
 - 輸出前確認 Rotation / Scale，尤其是非均勻縮放。
 - 外部 FBX 匯入 Blender 後若有 Empty / Parent，先確認用途再決定是否解除。
 
-### Unity 0.01 / 90° 問題
+#### Unity 0.01 / 90° 問題
 
 - 區分 **FBX Importer Scale Factor / Convert Units** 與 **Hierarchy GameObject Transform Scale**。
 - 可建立 Blender `1m × 1m × 1m` Cube，與 Unity 內建 Cube 並排驗證世界尺寸。
 - 若世界尺寸正確且場景 GameObject Scale = `1,1,1`，不要只因 Importer 內部顯示 `0.01` 就持續修改 Blender。
 - 若尺寸正確但 Root Rotation 有 ±90°，再檢查 Axis Conversion、Forward / Up 與引擎 Import 設定。
 
-### 舊筆記中需要避免當成絕對規則的說法
+#### 舊筆記中需要避免當成絕對規則的說法
 
 - Apply Transform 一定能讓 Unity / Unreal Root 變成 `0,0,0`。
 - Forward / Up 絕對不能修改，否則一定 Double Conversion。
