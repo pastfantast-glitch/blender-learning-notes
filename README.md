@@ -144,6 +144,19 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 
 參考：[Blender 4.5 Cycles Baking](https://docs.blender.org/manual/en/4.5/render/cycles/baking.html)、[Blender 4.5 Data Transfer](https://docs.blender.org/manual/en/4.5/modeling/modifiers/modify/data_transfer.html)。
 
+### 6.4 硬表面低模已有兩段 Bevel，還需要切硬邊嗎？
+
+**不一定。** 低模在 90° 轉角已有兩段實際 Chamfer／Bevel（Blender Bevel Segments = 2）時，先使用 **Shade Smooth** 確認受光，不需自動在每條倒角邊界 Mark Sharp。
+
+- **全部 Smooth 已正常**：可直接進行 High → Low Tangent Space Normal Bake，不必為了烘焙額外切平滑組。
+- **大平面被倒角法線拉歪，產生漸層或三角形陰影**：先測試 **Weighted Normal Modifier**，必要時搭配 Bevel 的 Harden Normals／Face Strength。Weighted Normal 不保證適合所有拓樸，須檢查高光。
+- **仍需隔離大平面與倒角法線**：才於倒角交界 **Mark Sharp**。若使用 Hard Edge，對應邊界**也應分割 UV Island**，降低切線空間 Normal Map 烘焙接縫風險；UV Seam 不一定反過來要求 Hard Edge。
+- **已有兩段倒角不是法線必須連續的保證**：根據大平面、高光與最終 Normal Map 結果判斷。烘焙前固定 Smooth／Sharp、Custom Normals、UV 及三角化行為，並確認匯入 Unity／Unreal 後法線切線一致。
+
+**推薦順序**：兩段 Bevel → Shade Smooth → 檢查大平面與鏡面高光 → 視需要 Weighted Normal → 最後才考慮 Mark Sharp + UV Split → High/Low Normal Bake。
+
+參考：[Marmoset Baking Tips & Tricks](https://docs.marmoset.co/docs/tips-tricks/)、[Blender Bevel Modifier Shading](https://docs.blender.org/manual/en/4.5/modeling/modifiers/generate/bevel.html)。
+
 ## 7. 查看面數
 
 - 3D Viewport → Viewport Overlays → **Statistics**：顯示 Vertices / Edges / Faces / Tris。
