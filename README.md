@@ -164,6 +164,22 @@ bmesh.update_edit_mesh(obj.data)
 - [Edge to Seam Toolkit 官方說明](https://superhivemarket.com/products/edge-to-seam-toolkit--hard-surface-uv-add-on/docs)
 - [Zeeks Auto UV Unwrap 官方 Extensions](https://extensions.blender.org/add-ons/zeeks-auto-uv-unwrap/)
 
+### 8.3 RizomUV：利用硬邊資訊進行 Auto Seams 與 Unfold
+
+**RizomUV 可以處理這個需求，先前列舉 UV 插件時不應忽略它。** RizomUV 的 **Auto Seams → Sharpest Angles** 適合硬表面模型，可分析幾何角度、Quad 拓樸及 User Vertex Normals 等資訊，自動決定接縫並 Unfold／Pack。RizomUV 更新紀錄亦提到 Auto Seams 的法線來源設定。
+
+**重要區分**：
+- 幾何夾角、Blender **Mark Sharp** 標記和傳輸後的 FBX 使用者法線不完全等同。直接送進 RizomUV 的 Auto Seams **不保證逐條採用 Blender 已標記 Sharp Edge**。
+- 若要求嚴格沿用 Blender 的 Sharp，較可靠的方式是先在 Blender 把 Sharp 轉為 **Seam**（見 8.1），再以支援 Seam 傳送的 Bridge 進行 Unfold／Pack，或使用支援 Sharp Selection Sync 的 Bridge。
+
+**橋接選擇**：
+- [RizomUV Bridge（Superhive）](https://superhivemarket.com/products/rizom-uv-bridge/docs)：支援自動切割、Unfold、Pack、回傳 UV 與傳送 Blender Seam（要檢查 Auto Seams／Cut by My Seams 設定）；需搭配獨立 RizomUV。
+- [B2RUVL](https://tituslvr.github.io/B2RUVL/)：文件列出 Sharp／Seam 邊選取同步、Sharp_Edges Lua 腳本；**要求 Blender 5.0+（Windows）**，不適合作為 Blender 4.5 直接安裝的建議。
+
+**Max 對照**：3ds Max 的「By Smoothing Groups」是直接依群組邊界切 UV；RizomUV 的 Sharpest Angles 是自動分析法線／幾何資訊，而非完全同義。若目的為準確沿用 Blender Mark Sharp，採 **Sharp → Seam → Bridge 到 RizomUV → Unfold → Pack → 回傳 Blender**。
+
+參考：[RizomUV 官方算法](https://www.rizomuv.com/c-library/)、[RizomUV 更新紀錄](https://www.rizomuv.com/changelog/)、[RizomUV Bridge 文件](https://superhivemarket.com/products/rizom-uv-bridge/docs)。
+
 ## 9. Shader / Normal Map
 
 ### 反轉 Normal Map 綠色通道
