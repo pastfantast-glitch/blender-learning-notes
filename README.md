@@ -127,6 +127,23 @@ LoopTools 另外常用的功能包括 **Relax、Space、Flatten、Bridge**。
 
 參考：[Blender 4.5 Data Transfer Modifier](https://docs.blender.org/manual/en/4.5/modeling/modifiers/modify/data_transfer.html)、[Blender Normal Edit Modifier](https://docs.blender.org/manual/en/4.5/modeling/modifiers/normals/normal_edit.html)。
 
+### 6.3 法線傳導與 High Poly → Low Poly Normal Bake 的關係
+
+**法線傳導（Data Transfer → Custom Normals）可以在烘焙前用來調整低模頂點／面角法線，但不會自行將高模雕刻細節烘焙成貼圖。** Tangent Space Normal Map 依低模的法線與切線基底編碼；更改低模法線可能改變烘焙結果與引擎呈現。
+
+**適用案例**：特殊低面數曲面、貼附於角色表面的細節 Mesh、Hair Cards 或需要特殊 NPR 受光方向的資產。一般角色素體通常使用適當的 Shade Smooth、Mark Sharp、合理 UV 及 Cage 即可，不需要強制傳導法線。
+
+**推薦順序**：
+1. 完成 Low Poly 拓樸與 UV。
+2. 決定低模 Smooth／Sharp 與必要的 Custom Normals；若有需要，使用 Data Transfer 從參考 Mesh 傳導。
+3. 固定低模最終法線狀態，再用 High Poly → Low Poly（Selected to Active）烘焙 Tangent Space Normal Map。
+4. 依需求使用 Cage 或 Ray Distance，檢查硬邊、UV 接縫及投射瑕疵。
+5. 匯出 Low Poly + Normal Map 到 Unity／Unreal，確認引擎的法線／切線匯入與烘焙時一致。
+
+**注意**：烘焙後再修改低模 Sharp、Custom Normals、UV 切割或引擎重新計算法線，可能造成貼圖與切線基底不一致，需要重烘。法線傳導不是改善高低模幾何投射錯誤的萬用方法；Cage 和合理的 UV／硬邊分割仍很重要。
+
+參考：[Blender 4.5 Cycles Baking](https://docs.blender.org/manual/en/4.5/render/cycles/baking.html)、[Blender 4.5 Data Transfer](https://docs.blender.org/manual/en/4.5/modeling/modifiers/modify/data_transfer.html)。
+
 ## 7. 查看面數
 
 - 3D Viewport → Viewport Overlays → **Statistics**：顯示 Vertices / Edges / Faces / Tris。
